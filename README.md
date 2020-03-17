@@ -59,3 +59,5 @@ Swagger docs:
 
 ![Swagger](swagger.png?raw=true "Swagger")
 
+As an exercise, go through the other end-points and annotate the functions. You can also trigger the endpoints via the
+Swagger page if you want to test them further.
