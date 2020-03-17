@@ -5,6 +5,9 @@ import java.util.List;
 import demo.managers.EmployeeManager;
 import demo.models.Employee;
 import demo.models.exceptions.EmployeeNotFoundException;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +20,12 @@ class EmployeeController {
     private EmployeeManager employeeManager;
 
     @GetMapping("")
+    @ApiOperation(value = "Get list of Employees in the System ", response = Iterable.class, tags = "employees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK"),
+            @ApiResponse(code = 401, message = "not authorized!"),
+            @ApiResponse(code = 403, message = "forbidden!!!"),
+            @ApiResponse(code = 404, message = "not found!!!") })
     List<Employee> all() {
         return employeeManager.getAll();
     }

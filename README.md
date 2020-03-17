@@ -10,7 +10,6 @@ There are a few ways we can use Swagger. For this example we will be using the S
 native annotations. There will be a separate tutorial covering [Enunciate](https://github.com/stoicflame/enunciate) 
 use.
 
-
 First, we will need to include the Swagger libraries: 
 
 ```xml
@@ -39,4 +38,24 @@ public class SpringFoxConfig {
 }
 ```
 
-This now should be enough to 
+This now should be enough to to start documenting the application. Using the Swagger annotations, we can document
+our RESTFul endpoints:
+
+```java
+@GetMapping("")
+    @ApiOperation(value = "Get list of Employees in the System ", response = Iterable.class, tags = "employees")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK"),
+            @ApiResponse(code = 401, message = "not authorized!"),
+            @ApiResponse(code = 403, message = "forbidden!!!"),
+            @ApiResponse(code = 404, message = "not found!!!") })
+    List<Employee> all() {
+        return employeeManager.getAll();
+    }
+```
+
+When we run the application, we can navigate to http://localhost:8080/swagger-ui.html and see how these are converted into
+Swagger docs:
+
+![Swagger](swagger.png?raw=true "Swagger")
+
