@@ -15,8 +15,13 @@ First, we will need to include the Swagger libraries:
 ```xml
 <dependency>
     <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger2</artifactId>
-    <version>2.9.2</version>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
+</dependency>
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -25,7 +30,6 @@ Next, define the configuration class:
 
 ```java
 @Configuration
-@EnableSwagger2
 public class SpringFoxConfig {
     @Bean
     public Docket api() {
@@ -38,23 +42,23 @@ public class SpringFoxConfig {
 }
 ```
 
-This now should be enough to to start documenting the application. Using the Swagger annotations, we can document
+This now should be enough to start documenting the application. Using the Swagger annotations, we can document
 our RESTFul endpoints:
 
 ```java
 @GetMapping("")
-    @ApiOperation(value = "Get list of Employees in the System ", response = Iterable.class, tags = "employees")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success|OK"),
-            @ApiResponse(code = 401, message = "not authorized!"),
-            @ApiResponse(code = 403, message = "forbidden!!!"),
-            @ApiResponse(code = 404, message = "not found!!!") })
-    List<Employee> all() {
-        return employeeManager.getAll();
-    }
+@ApiOperation(value = "Get list of Employees in the System ", response = Iterable.class, tags = "employees")
+@ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Success|OK"),
+        @ApiResponse(code = 401, message = "not authorized!"),
+        @ApiResponse(code = 403, message = "forbidden!!!"),
+        @ApiResponse(code = 404, message = "not found!!!") })
+List<Employee> all() {
+    return employeeManager.getAll();
+}
 ```
 
-When we run the application, we can navigate to http://localhost:8080/swagger-ui.html and see how these are converted into
+When we run the application, we can navigate to http://localhost:8080/swagger-ui/ and see how these are converted into
 Swagger docs:
 
 ![Swagger](swagger.png?raw=true "Swagger")
